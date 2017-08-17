@@ -21,5 +21,17 @@ class User(object):
             for movie in self.movies:
                 f.write('{},{},{}'.format(movie.name, movie.genre, movie.watched)+'\n')
 
+    @classmethod
+    def load_from_file(cls, filename):
+        with open('{}.txt'.format(filename), 'r') as f:
+            username = f.readline()
+            movies = []
+            for line in f.readlines():
+                name, genre, watched = line.split(',')
+                movies.append(Movie(name, genre, watched == 'True'))
+        user = cls(username)
+        user.movies = movies
+        return user
+
     def watched_movies(self):
         return list(filter(lambda movie: movie.watched, self.movies))
