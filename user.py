@@ -5,3 +5,6 @@ class User(object):
 
     def __repr__(self):
         return "<User {}>".format(self.name)
+
+    def watched_movies(self):
+        return list(filter(lambda movie : movie.watched, self.movies))

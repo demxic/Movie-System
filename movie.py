@@ -1,6 +1,9 @@
 class Movie(object):
 
-    def __init__(self, name, genre):
+    def __init__(self, name, genre, watched):
         self.name = name
         self.genre = genre
-        self.director = None
+        self.watched = watched
+
+    def __repr__(self):
+        return "<Movie {}>".format(self.name)
