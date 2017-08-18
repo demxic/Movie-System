@@ -16,10 +16,10 @@ class User(object):
         return list(filter(lambda movie: movie.name != name, self.movies))
 
     def save_to_file(self):
-        with open ("{}.txt".format(self.name), 'w') as f:
-            f.write(self.name+'\n')
+        with open("{}.txt".format(self.name), 'w') as f:
+            f.write(self.name + '\n')
             for movie in self.movies:
-                f.write('{},{},{}'.format(movie.name, movie.genre, movie.watched)+'\n')
+                f.write('{},{},{}'.format(movie.name, movie.genre, movie.watched) + '\n')
 
     @classmethod
     def load_from_file(cls, filename):
@@ -30,6 +30,19 @@ class User(object):
                 name, genre, watched = line.split(',')
                 movies.append(Movie(name, genre, watched == 'True'))
         user = cls(username)
+        user.movies = movies
+        return user
+
+    def json(self):
+        return {'name': self.name,
+                'movies': [movie.json() for movie in self.movies]
+                }
+
+    @classmethod
+    def from_json(cls, json_data):
+        user_name = json_data['name']
+        movies = [Movie.from_json(movie_data) for movie_data in json_data['movies']]
+        user = cls(user_name)
         user.movies = movies
         return user
 
