@@ -11,8 +11,7 @@ class Movie(object):
 
     @classmethod
     def from_json(cls, movie_data):
-        movie = cls(movie_data['name'], movie_data['genre'], movie_data['watched'])
-        return movie
+        return cls(**movie_data)
 
     def __repr__(self):
         return "<Movie {}>".format(self.name)

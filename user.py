@@ -15,6 +15,10 @@ class User(object):
     def delete_movie(self, name):
         return list(filter(lambda movie: movie.name != name, self.movies))
 
+    def get_movie(self, name):
+        fil = filter(lambda movie : movie.name == name, self.movies)
+        return list(fil)[0]
+
     def save_to_file(self):
         with open("{}.txt".format(self.name), 'w') as f:
             f.write(self.name + '\n')
